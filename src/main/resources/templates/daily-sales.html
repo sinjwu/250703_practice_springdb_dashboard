@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>일별 매출 요약</title>
-    <link rel="stylesheet" th:href="@{/styles.css" />
+    <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
 <h1>일별 매출 요약</h1>
@@ -20,7 +20,7 @@
     </thead>
     <tbody>
     <tr th:each="sale: ${sales}">
-        <td th: text="${sale.saleDate}">2025-01-01</td>
+        <td th:text="${sale.saleDate}">2025-01-01</td>
         <td th:text="${#numbers.formatDecimal(sale.totalAmount, 0, 'COMMA', 2, 'POINT')}">0</td>
         <td th:text="${sale.orderCount}">0</td>
     </tr>
