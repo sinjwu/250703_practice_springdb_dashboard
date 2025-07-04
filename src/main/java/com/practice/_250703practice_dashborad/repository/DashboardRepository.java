@@ -2,6 +2,7 @@ package com.practice._250703practice_dashborad.repository;
 
 import com.practice._250703practice_dashborad.model.CustomerRank;
 import com.practice._250703practice_dashborad.model.DailySales;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -42,9 +43,14 @@ public class DashboardRepository {
             return jdbcTemplate.query(sql, customerRankRowMapper);
         }
     public void saveSale(LocalDate saleDate, int customerId, BigDecimal amount) {
-        jdbcTemplate.update (
-                "INSERT INTO sales (sale_date, customer_id, amount) VALUES(?, ?, ?)",
-                saleDate, customerId, amount
-        );
+        try {
+            jdbcTemplate.update(
+                    "INSERT INTO sales (sale_date, customer_id, amount) VALUES(?, ?, ?)",
+                    saleDate, customerId, amount
+            );
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("큰 수");
+            e.getStackTrace();
+        }
     }
 }
